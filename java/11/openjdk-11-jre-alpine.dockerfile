@@ -15,8 +15,10 @@ RUN echo https://mirrors.aliyun.com/alpine/v3.17/main/ > /etc/apk/repositories &
     echo https://mirrors.aliyun.com/alpine/v3.17/community/ >> /etc/apk/repositories
 
 # fontconfig and ttf-dejavu added to support serverside image generation by Java programs
-RUN apk add --no-cache fontconfig libretls musl-locales musl-locales-lang ttf-dejavu tzdata zlib \
-    && rm -rf /var/cache/apk/*
+RUN apk add --no-cache fontconfig libretls musl-locales musl-locales-lang ttf-dejavu tzdata zlib  \
+    && rm -rf /var/cache/apk/* \
+    && echo "Asia/Shanghai" > /etc/timezone \
+    && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 ENV JAVA_VERSION jdk-11.0.18+10
 
@@ -48,5 +50,3 @@ RUN echo '检查安装...' \
     && fileEncoding="$(echo 'System.out.println(System.getProperty("file.encoding"))' | jshell -s -)"; [ "$fileEncoding" = 'UTF-8' ]; rm -rf ~/.java \
     && echo java -version && java -version \
     && echo '成功'
-
-

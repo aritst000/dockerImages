@@ -20,17 +20,17 @@ RUN apk add --no-cache fontconfig libretls musl-locales musl-locales-lang ttf-de
     && echo "Asia/Shanghai" > /etc/timezone \
     && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-ENV JAVA_VERSION jdk-11.0.18+10
+ENV JAVA_VERSION jdk-11.0.19+7
 
 RUN set -eux; \
     ARCH="$(apk --print-arch)"; \
     case "${ARCH}" in \
        amd64|x86_64) \
-         ESUM='81e51ec2da61b227c522881313c7e2a090b29d6cc4171b5e1db3f3d17d863e44'; \
-         BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.18%2B10/OpenJDK11U-jre_x64_alpine-linux_hotspot_11.0.18_10.tar.gz'; \
+         ESUM='b5d71cdf3032040e7d2a577712bf525e32e87686af3430219308a39878b98851'; \
+         BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.19%2B7/OpenJDK11U-jre_x64_alpine-linux_hotspot_11.0.19_7.tar.gz'; \
          ;; \
        *) \
-         echo "Unsupported arch: ${ARCH}"; \
+         echo "不适合架构: ${ARCH}"; \
          exit 1; \
          ;; \
     esac; \
@@ -44,9 +44,8 @@ RUN set -eux; \
 	      --no-same-owner \
 	  ; \
     rm -f /tmp/openjdk.tar.gz ${JAVA_HOME}/src.zip ${JAVA_HOME}/COPYRIGHT ${JAVA_HOME}/LICENSE ${JAVA_HOME}/README ${JAVA_HOME}/release; \
-    rm -rf ${JAVA_HOME}/man /var/cache/*;
-
-RUN echo '检查安装...' \
+    rm -rf ${JAVA_HOME}/man /var/cache/*; \
+    echo '检查安装...' \
     && fileEncoding="$(echo 'System.out.println(System.getProperty("file.encoding"))' | jshell -s -)"; [ "$fileEncoding" = 'UTF-8' ]; rm -rf ~/.java \
     && echo java -version && java -version \
     && echo '成功'

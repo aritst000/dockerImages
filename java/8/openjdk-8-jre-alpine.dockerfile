@@ -20,14 +20,14 @@ RUN apk add --no-cache fontconfig libretls musl-locales musl-locales-lang ttf-de
     && echo "Asia/Shanghai" > /etc/timezone \
     && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-ENV JAVA_VERSION jdk11u22-b7
+ENV JAVA_VERSION jdk-8u402b06
 
 RUN set -eux; \
     ARCH="$(apk --print-arch)"; \
     case "${ARCH}" in \
        amd64|x86_64) \
-         ESUM='cbadab09243a084c3dc8c7e546c0f17941758f9df9c22b227144ce4247ad94f3'; \
-         BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.22%2B7/OpenJDK11U-jre_x64_alpine-linux_hotspot_11.0.22_7.tar.gz'; \
+         ESUM='abc7861abda181ffe4527997ef8267e701385f11b82d91bc3a56077be228b0e0'; \
+         BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u402-b06/OpenJDK8U-jre_x64_alpine-linux_hotspot_8u402b06.tar.gz'; \
          ;; \
        *) \
          echo "不适合架构: ${ARCH}"; \
@@ -41,7 +41,6 @@ RUN set -eux; \
 	      --file /tmp/openjdk.tar.gz \
 	      --directory "$JAVA_HOME" \
 	      --strip-components 1 \
-#	      --no-same-owner \
 	  ; \
     rm -f /tmp/openjdk.tar.gz ${JAVA_HOME}/src.zip ${JAVA_HOME}/COPYRIGHT ${JAVA_HOME}/LICENSE ${JAVA_HOME}/README ${JAVA_HOME}/release; \
     rm -rf ${JAVA_HOME}/man /var/cache/*; \

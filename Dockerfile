@@ -20,7 +20,7 @@ RUN apk add --no-cache fontconfig libretls musl-locales musl-locales-lang ttf-de
     && echo "Asia/Shanghai" > /etc/timezone \
     && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-ENV JAVA_VERSION jdk-11.0.19+7
+ENV JAVA_VERSION jdk11u19b07
 
 RUN set -eux; \
     ARCH="$(apk --print-arch)"; \

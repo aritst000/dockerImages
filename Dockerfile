@@ -20,14 +20,14 @@ RUN apk add --no-cache fontconfig libretls musl-locales musl-locales-lang ttf-de
     && echo "Asia/Shanghai" > /etc/timezone \
     && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-ENV JAVA_VERSION jre21u02b13
+ENV JAVA_VERSION jre21u03b09
 
 RUN set -eux; \
     ARCH="$(apk --print-arch)"; \
     case "${ARCH}" in \
        amd64|x86_64) \
-         ESUM='7077b9e42b40f1ed8d59a71ae59a57d5d55de2685cc5efd70a0405618da616d7'; \
-         BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.2%2B13/OpenJDK21U-jre_x64_alpine-linux_hotspot_21.0.2_13.tar.gz'; \
+         ESUM='b3e7170deab11a7089fe8e14f9f398424fd86db085f745dad212f6cfc4121df6'; \
+         BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.3%2B9/OpenJDK21U-jre_x64_alpine-linux_hotspot_21.0.3_9.tar.gz'; \
          ;; \
        *) \
          echo "不适合架构: ${ARCH}"; \

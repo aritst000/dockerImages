@@ -54,10 +54,9 @@ RUN  cd ./nginx-${NGINX_VERSION} && \
      && make && make install && \
      make clean && apk del build-base
 
-# 设置 Nginx 启动所需的用户和组
-RUN addgroup -S nginx && adduser -S -G nginx nginx
-
 ENV PATH="/usr/local/nginx/sbin:$PATH"
 
 # 设置容器启动后执行的命令
 CMD ["nginx", "-g", "daemon off;"]
+
+EXPOSE 80 80
